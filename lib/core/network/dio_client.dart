@@ -9,13 +9,16 @@ class DioClient {
     ),
   );
   DioClient() {
+    // _dio.interceptors.add(
+    //   LogInterceptor(requestBody: true, responseBody: true),
+    // );
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
           // You can add authorization headers or logging here
           final token =
               await PrefHelper.getUserToken(); // Retrieve your token from secure storage
-          if (token != null && token.isNotEmpty) {
+          if (token != null && token.isNotEmpty && token != 'guest') {
             options.headers['Authorization'] = 'Bearer $token';
           }
 

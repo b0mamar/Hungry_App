@@ -21,6 +21,7 @@ class LoginView extends StatefulWidget {
 
 TextEditingController emailController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
+
 bool _isLoading = false;
 
 class _LoginViewState extends State<LoginView> {
@@ -62,6 +63,13 @@ class _LoginViewState extends State<LoginView> {
 
       // Handle login error
     }
+  }
+
+  @override
+  void initState() {
+    emailController.text = 'b0m.amar22@gmail.com';
+    passwordController.text = '123456789';
+    super.initState();
   }
 
   @override

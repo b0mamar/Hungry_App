@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:hangry_app/core/constants/app_colors.dart';
+import 'package:hangry_app/features/auth/data/auth_repo.dart';
 import 'package:hangry_app/features/auth/view/login_view.dart';
+import 'package:hangry_app/root.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -19,6 +21,26 @@ class _SplashViewState extends State<SplashView>
   late final Animation<double> _logoFade;
   late final Animation<Alignment> _bgAlignment;
   late final Animation<Offset> _bottomSlide;
+
+  AuthRepo authRepo = AuthRepo();
+
+  Future<void> checkLogIn() async {
+    final user = await authRepo.autoLogIn();
+    if (!mounted) return;
+    if (authRepo.isGuest) {
+      Navigator.of(
+        context,
+      ).pushReplacement(MaterialPageRoute(builder: (_) => const Root()));
+    } else if (user != null) {
+      Navigator.of(
+        context,
+      ).pushReplacement(MaterialPageRoute(builder: (_) => const Root()));
+    } else {
+      Navigator.of(
+        context,
+      ).pushReplacement(MaterialPageRoute(builder: (_) => const LoginView()));
+    }
+  }
 
   @override
   void initState() {
@@ -78,9 +100,7 @@ class _SplashViewState extends State<SplashView>
     // navigate when animation completes
     _ctrl.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Navigator.of(
-          context,
-        ).pushReplacement(MaterialPageRoute(builder: (_) => const LoginView()));
+        checkLogIn();
       }
     });
   }

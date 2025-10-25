@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:hangry_app/core/constants/app_colors.dart';
+import 'package:hangry_app/features/auth/view/profile_view.dart';
 import 'package:hangry_app/features/auth/widget/card_item.dart';
 import 'package:hangry_app/features/products/view/product_details_view.dart';
 import 'package:hangry_app/shared/custom_text.dart';
-import 'package:hangry_app/splash.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -62,7 +62,7 @@ class _HomeViewState extends State<HomeView> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return SplashView();
+                                  return ProfileView();
                                 },
                               ),
                             );
